@@ -1,19 +1,21 @@
 import page from "page";
+import queryString from 'query-string'
 import axios from "axios";
 
 export const router = {
   route(route, action) {
-    page(route, ({ params }) => action(params));
+    page(route, ({ params, querystring }) => {
+      const payload = Object.assign({}, params, queryString.parse(querystring))
+      action(payload)
+    })
   },
   start: () => page.start(),
   open: url => page.show(url)
 };
 
 export const api = {
-
   async getUsers() {
     let res = await axios.get("https://jsonplaceholder.typicode.com/users");
-
     let users = res.data;
     let deleteKeys = ['address', 'phone', 'website', 'company', 'email']
     
@@ -25,7 +27,6 @@ export const api = {
     )
     return users
   },
-
   async getUserWithDetails(id) {
     let { data } = await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`);
     

@@ -1,21 +1,32 @@
+import { parallel, action } from 'overmind'
+
 export const showHomePage = ({ state }) => {
-  state.currentPage = "home";
+  state.currentPage = "home"
+  state.modalUser = null
 };
 
-export const showUsersPage = async ({ state, effects }) => {
-  state.user = null;
-  state.currentPage = "users";
-  state.isLoadingUsers = true;
-  const us2 = await effects.api.getUsers();
-  console.log('action:showUsersPage got users:')
-  console.dir(us2)
-  state.users = us2
+export const showStateJson = ({ state }) => {
+  state.showStateJson = !state.showStateJson
+};
 
+export const showUsersPage = async ({ value: params, state, effects }) => {
+  if (!params.id) state.modalUser = null
+
+  state.currentPage = 'users'
+  state.isLoadingUsers = true
+  state.users = await effects.api.getUsers();
   state.isLoadingUsers = false;
-};
+}
 
-export const showUserModal = async ({ value: params, state, effects }) => {
-  state.isLoadingUserDetails = true;
-  state.modalUser = await effects.api.getUserWithDetails(params.id);
-  state.isLoadingUserDetails = false;
-};
+export const showUserModal = parallel(
+  showUsersPage,
+  action(async ({ value: params, state, effects }) => {
+    state.currentUserModalTabIndex = Number(params.tab)
+
+    if (state.modalUser && state.modalUser.id === params.id) return
+
+    state.isLoadingUserDetails = true;
+    state.modalUser = await effects.api.getUserWithDetails(params.id);
+    state.isLoadingUserDetails = false;
+  })
+)

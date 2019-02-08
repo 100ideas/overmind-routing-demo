@@ -91,7 +91,7 @@
 .content{
 	display: flex;
 	align-items: center;
-	justify-content: top;
+	justify-content: flex-start;
 	flex-direction: column;
 	margin-top: 100px;
 }
@@ -171,6 +171,16 @@ a:link:hover, a:visited:hover {
 .modal {
 	padding: 1em 0;
 	border-bottom: 1px solid #666;
+	min-height: 100px;
+	min-width: 300px
+}
+
+.modal nav {
+	margin-top: 10px;
+}
+
+.modal nav a {
+	margin: 0 10px 10px 0;
 }
 
 /* ---------------basic--------------- */

@@ -12,7 +12,7 @@ const App = () => {
     <div className="container">
       
       <div className="subhead">
-        <h3>overmind <a href='https://www.overmindjs.org/guides/intermediate/02_routing?view=react&typescript=false'>state first routing</a> demo</h3>
+        <h3>overmind.js <a href='https://www.overmindjs.org/guides/intermediate/02_routing?view=react&typescript=false'>"state-first" routing</a> demo</h3>
       </div>
 
       <nav className="mainnav">
@@ -28,6 +28,7 @@ const App = () => {
       </div>
       
       <div className="quote">
+        {/* TODO use state.showStateJson to show/hide this */}
         <h3>state:</h3>
         <pre>{JSONfn(state)}</pre>
       </div>
