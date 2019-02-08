@@ -25,6 +25,7 @@ export const api = {
         delete user[key]
       )
     )
+    
     return users
   },
   async getUserWithDetails(id) {

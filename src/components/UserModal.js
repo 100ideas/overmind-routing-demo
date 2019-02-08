@@ -2,13 +2,6 @@ import React from 'react'
 import { useOvermind } from '../overmind'
 
 const prettyAddress = (json) => {
-// return <pre>{`
-// street: ${json.street}
-// suite: ${json.suite}
-// city: ${json.city}
-// zipcode: ${json.zipcode}
-// (${json.geo.lat}, ${json.geo.lng})`}
-// </pre>
 return <pre>{`${json.street}
 ${json.suite}
 ${json.city}, ${json.zipcode}
